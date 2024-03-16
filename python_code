@@ -1,0 +1,22 @@
+import numpy as np
+import os
+import skimage
+
+
+# Load the images from the subfolders into a list
+image_list = []
+for subfolder in os.listdir('C:/Users/user/Desktop/DATA/DATA1'):
+    subfolder_path = os.path.join('C:/Users/user/Desktop/DATA/DATA1', subfolder)
+    for image_file in os.listdir(subfolder_path):
+        image = skimage.io.imread(os.path.join(subfolder_path, image_file))
+        image = skimage.transform.resize(image, (256, 256, 1), mode='reflect', anti_aliasing=False)
+        image_list.append(image)
+
+# Convert the list to a numpy array
+image_array = np.array(image_list)
+
+# Save the numpy array to a .npy file
+np.save('C:/Users/user/Desktop/DATA/images.npy', image_array)
+
+# Load the .npy file into a NumPy array
+#X = np.load('C:/Users/user/Desktop/DATA/images.npy', allow_pickle=True)
